@@ -2,7 +2,8 @@ import { User } from "src/user/entity/user";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
-@Entity()
+
+
 export class ProfileEntity{
     @PrimaryGeneratedColumn()
     id: number;

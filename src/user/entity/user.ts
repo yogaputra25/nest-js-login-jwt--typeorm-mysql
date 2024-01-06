@@ -1,6 +1,7 @@
 import { ProfileEntity } from "src/profile/entity/profile.entity";
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import * as bcrypt from 'bcryptjs';
+import { Product } from "src/product/entity/product.entity";
 @Entity({
     name: 'users',
   })
@@ -16,6 +17,9 @@ export class User {
 
     @Column()
     password: string;
+
+    @OneToMany(()=> Product,(product) => product)
+    product: Product
 
 
     

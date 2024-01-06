@@ -9,6 +9,9 @@ import { User } from './user/entity/user';
 import { ProfileModule } from './profile/profile.module';
 import { AuthModule } from './auth/auth.module';
 import { BcryptService } from './bcrypt/bcrypt.service';
+import { ProductController } from './product/product.controller';
+import { ProductService } from './product/product.service';
+import { ProductModule } from './product/product.module';
 
 
 
@@ -23,7 +26,7 @@ import { BcryptService } from './bcrypt/bcrypt.service';
     entities: [User],
     autoLoadEntities: true,
     synchronize: true
-  }),UserModule, ProfileModule, AuthModule],
+  }),UserModule, ProfileModule, AuthModule, ProductModule],
   controllers: [AppController],
   providers: [AppService, BcryptService],
 })
