@@ -15,10 +15,28 @@ export class ProfileService {
             return await this.userRepository.save(data)
         }
         async getAllUser(){
-            return await this.userRepository.find({
+            const users=  await this.userRepository.find({
                 relations: {
-                    user: true,
-                },
+                    user: true
+                }
             })
+
+            const filteredUsers = users.map((user) => {
+                return {
+                    id: user.id,
+                    hobby: user.hobby,
+                    gender: user.gender,
+                    addres: user.addres,
+                    contact: user.contact,
+                    createdAt: user.createdAt,
+                    updatedAt: user.updatedAt,
+                    user: {
+                        id: user.user.id,
+                        name: user.user.name
+                    },
+                };
+            });
+
+            return filteredUsers
         }
 }

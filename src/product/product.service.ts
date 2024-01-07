@@ -26,4 +26,32 @@ export class ProductService {
         await this.productRepository.save(produk2);
         return produk2;
       }
+
+      async getAllPublic(){
+        const dataUsers = await this.productRepository.find({
+            relations: {user: true},
+            where: {isPublic: 1}
+        })
+
+        // const filterProducts = dataUsers.map((user) => {
+        //     return {
+        //         id: user.id
+        //     }
+        // })
+        return dataUsers
+      }
+      async getAllPrivate(){
+        const dataUsers = await this.productRepository.find({
+            relations: {user: true},
+            where: {isPublic: 0}
+        })
+
+        // const filterProducts = dataUsers.map((user) => {
+        //     return {
+        //         id: user.id
+        //     }
+        // })
+        return dataUsers
+      }
 }
+
