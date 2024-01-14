@@ -55,10 +55,10 @@ export class ProductService {
         isPublic: true,
         nameProduct: true,
         file: true,
-        user: {id: true}
+        user: { id: true, email: true },
       },
-      relations: {user: true},
-      
+      relations: { user: true },
+
       where: { isPublic: 0 },
     });
 
