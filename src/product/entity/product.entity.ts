@@ -1,5 +1,5 @@
 import { User } from "src/user/entity/user";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -14,6 +14,7 @@ export class Product {
   
     @Column()
     file: string; // Simpan path file di database
-    @ManyToOne(() => User, (user) => user)
+    @ManyToOne(() => User)
+    @JoinColumn({name:'userId' })
     user: User;
   }

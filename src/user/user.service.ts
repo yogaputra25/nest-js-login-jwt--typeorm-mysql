@@ -9,8 +9,8 @@ export class UserService {
     constructor(
         @InjectRepository(User) private userRepository: Repository<User>) { }
 
-    async getUser():Promise<User[]> {
-        return await this.userRepository.find();
+    async getUser() {
+        return await this.userRepository.find({relations: {product: true}});
     }
  
     async deleteUser(id) {
