@@ -12,6 +12,7 @@ import { BcryptService } from './bcrypt/bcrypt.service';
 import { ProductController } from './product/product.controller';
 import { ProductService } from './product/product.service';
 import { ProductModule } from './product/product.module';
+import { TagModule } from './tag/tag.module';
 
 
 
@@ -26,7 +27,7 @@ import { ProductModule } from './product/product.module';
     entities: [User],
     autoLoadEntities: true,
     synchronize: true
-  }),UserModule, ProfileModule, AuthModule, ProductModule],
+  }),UserModule, ProfileModule, AuthModule, ProductModule, TagModule],
   controllers: [AppController],
   providers: [AppService, BcryptService],
 })
