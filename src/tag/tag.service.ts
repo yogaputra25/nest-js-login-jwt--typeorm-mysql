@@ -5,11 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class TagService {
-    constructor( @InjectRepository(Tags) private tagRepository: Repository<Tags>){}
+  constructor(
+    @InjectRepository(Tags) private tagRepository: Repository<Tags>,
+  ) {}
 
-    async getAllTag(){
-        return await this.tagRepository.find()
-
-    }
-
+  async getAllTag() {
+    return await this.tagRepository.find();
+  }
 }

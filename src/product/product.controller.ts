@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -32,13 +34,16 @@ export class ProductController {
   ) {
     return this.productService.createProduct(data, images);
   }
-  @Get("/public")
+  @Delete('/:id/delete')
+  async deleteProduct(@Param('id') id: Product) {
+    return this.productService.deleteProduct(id);
+  }
+  @Get('/public')
   async getAllProductPublic() {
     return this.productService.getAllPublic();
   }
-  @Get("/private")
+  @Get('/private')
   async getAllPoductPrivate() {
-    return this.productService.getAllPrivate()
+    return this.productService.getAllPrivate();
   }
-  
 }
