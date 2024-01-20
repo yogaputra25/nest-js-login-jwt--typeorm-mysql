@@ -21,7 +21,7 @@ export class Product {
 
   @Column()
   file: string; // Simpan path file di database
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.product)
   @JoinColumn({ name: 'userId' })
   user: User;
 }

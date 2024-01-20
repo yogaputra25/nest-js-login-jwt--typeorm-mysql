@@ -20,8 +20,8 @@ export class MetadataProduct {
 
   @Column()
   short: string;
-  @ManyToMany(() => Tags)
-  @JoinTable()
+  @ManyToMany(() => Tags, (tags) => tags.metadataProduct)
+  @JoinTable({ name: 'metadataProduct_tags' })
   tags: Tags[];
 
   @OneToOne(() => Product, {

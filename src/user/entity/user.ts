@@ -1,44 +1,47 @@
-import { ProfileEntity } from "src/profile/entity/profile.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { ProfileEntity } from 'src/profile/entity/profile.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Product } from "src/product/entity/product.entity";
+import { Product } from 'src/product/entity/product.entity';
 @Entity({
-    name: 'users',
-  })
+  name: 'users',
+})
 export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
+  name: string;
 
-    @PrimaryGeneratedColumn()
-    id: number;
-    @Column()
-    name: string
-    
-    @Column({ unique:true })
-    email: string
+  @Column({ unique: true })
+  email: string;
 
-    @Column()
-    password: string;
+  @Column({ select: false })
+  password: string;
 
-    @OneToMany(()=> Product,(product) => product.user)
-    product: Product[]
+  async hashPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, 10);
+  }
 
+  async comparePassword(attempt: string): Promise<boolean> {
+    return await bcrypt.compare(attempt, this.password);
+  }
 
-    
-    async hashPassword(password: string): Promise<string> {
-        return await bcrypt.hash(password, 10);
-    }
+  @Column()
+  @CreateDateColumn()
+  createdAt: Date;
 
-    async comparePassword(attempt: string): Promise<boolean> {
-        return await bcrypt.compare(attempt, this.password);
-    }
+  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @Column()
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @Column()
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    
- 
+  @OneToMany(() => Product, (product) => product.user)
+  product: Product[];
 }

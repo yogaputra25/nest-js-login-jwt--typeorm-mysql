@@ -1,9 +1,20 @@
-import { Body, Controller, Get, Param, Post, Response, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Response,
+  UseGuards,
+} from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { ProfileEntity } from './entity/profile.entity';
 import { ResponseHelper } from 'src/helper/response.helper';
 import { JwtGuard } from 'src/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
+import { CreateDto } from './dto/createProfile.dto';
+import { SuccessResponseFactory } from 'src/helper/succes.helper';
 
 @Controller('profile')
 export class ProfileController {
@@ -13,13 +24,29 @@ export class ProfileController {
   ) {}
 
   @Post('/:id')
-  async createProfile(@Body() data: any, @Param() id: any) {
+  async createProfile(
+    @Body() data: CreateDto,
+    @Param() id: any,
+  ): Promise<SuccessResponseFactory> {
+    // if (resp) {
+    //   return this.responseHelper.ok(resp);
+    // } else {
+    //   return this.responseHelper.badRequest();
+    // }
     const resp = await this.profileService.createProfile(data, id);
-    if (resp) {
-      return this.responseHelper.ok(resp);
-    } else {
-      return this.responseHelper.badRequest();
-    }
+    return SuccessResponseFactory.ok('Created', resp);
+    // try {
+
+    //   return {
+    //     statusCode: HttpStatus.OK,
+    //     data: resp,
+    //   };
+    // } catch (error) {
+    //   return {
+    //     statusCode: HttpStatus.BAD_REQUEST,
+    //     message: error.query,
+    //   };
+    // }
   }
 
   @UseGuards(JwtGuard)

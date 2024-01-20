@@ -6,32 +6,27 @@ import { CreateDto } from './dto/createuser.dto';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User) private userRepository: Repository<User>) { }
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
 
-    async getUser() {
-        return await this.userRepository.find({relations: {product: true}});
-    }
- 
-    async deleteUser(id) {
-        const data= {
-            "status": `Delete data ${id.id}`
-        }
-        await this.userRepository.delete(id)
-        return data
-        
-    }
+  async getUser(): Promise<User[]> {
+    return await this.userRepository.find({ relations: { product: true } });
+  }
 
-    async createUser(data: CreateDto) {
-        return await this.userRepository.save(data);
-        
-    }
+  async deleteUser(id) {
+    const data = {
+      status: `Delete data ${id.id}`,
+    };
+    await this.userRepository.delete(id);
+    return data;
+  }
 
-    async getUserOne(query: object ) {
-        return await this.userRepository.findOne(query)
-        
+  async createUser(data: CreateDto) {
+    return await this.userRepository.save(data);
+  }
 
-        
-    }
-    
+  async getUserOne(query: object) {
+    return await this.userRepository.findOne(query);
+  }
 }
