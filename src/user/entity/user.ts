@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Product } from 'src/product/entity/product.entity';
+import { Exclude } from 'class-transformer';
 @Entity({
   name: 'users',
 })
@@ -23,7 +24,8 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ select: false })
+  @Column()
+  @Exclude()
   password: string;
 
   async hashPassword(password: string): Promise<string> {
